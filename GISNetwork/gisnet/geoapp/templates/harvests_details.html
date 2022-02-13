@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %} 
+{% load crispy_forms_tags %}
+
+{% load bootstrap5%}
+
+{% bootstrap_css%}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/harvest.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'js/leaflet/leaflet.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'js/leafletplugins/leafletDraw/leaflet.draw.css' %}">
+    <link rel="stylesheet"  href="{% static 'js/leafletplugins/leaflet.groupedlayercontrol.css' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'js/leafletplugins/leafletSearch/leaflet-search.css' %}">
+    <link rel="stylesheet" href="{% static 'js/leafletplugins/mousePosition/L.Control.MousePosition.css' %}">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/Control.Geocoder.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/L.Control.Locate.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/leaflet-measure.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/leaflet-routing-machine.css' %}" type="text/css">
+    <script src="{% static 'js/jquery/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <title> Nakuru Avocado Network </title>
+</head>
+<body>
+   <div id="topbar">
+     <div class="logo"><h3 id="branding"> Nakuru Avocado Network </h3></div>
+     <div class="navigation">
+       <a href="{% url 'home' %}" class="one_line current">Home</a>
+       <a href="{% url 'reporting'%}" class="one_line">Report Incidence</a>
+       <span id="users">
+           {% if request.user.is_authenticated %}
+               Welcome  {{   request.user.first_name }}
+               <a href="{% url 'logout'  %}">Logout</a>
+           {% else %}
+               <a href="{% url 'login' %}">Login</a>
+           {% endif %} 
+       </span>       
+   </div>
+   </div>
+
+   <div id="bodycontainer">
+       <div id="harvest_form">
+           <h4>Keep track of Harvests from farm using the chart on the left </h4>
+            <form action="{% url 'harvest_details' %}" method="POST" class="form">
+                {{ havst_form.media }}
+                {% csrf_token %}
+                {% bootstrap_form havst_form%}
+                {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    Add Details
+                </button>
+                {% endbuttons %}
+            </form>
+       </div>
+       
+       <div id="harvest_graphs">
+            <!--The farmer can be able to see charts on their produce-->
+            <div id="bar_graph">
+                <canvas id="myChart" width="400" height="200"></canvas>
+                <script>
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [{% for data in data %} '{{ data.date }}', {% endfor %}],
+                            datasets: [{
+                                label: 'Amount of fruit produced per harvest date',
+                                data: [{% for data in data %} {{ data.fruits }}, {% endfor %}],
+                                backgroundColor: ['#009432'],
+                                borderColor: ['#009432'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                </script>
+            </div>
+            <div id="line_graph">
+                <canvas id="chart2" width="400" height="200"></canvas>
+                <script>
+                    const ctx2 = document.getElementById('chart2').getContext('2d');
+                    const chart2 = new Chart(ctx2, {
+                        type: 'line',
+                        data: {
+                            labels: [{% for data in data %} '{{ data.date }}', {% endfor %}],
+                            datasets: [{
+                                label: 'Amount of fruit produced per harvest date',
+                                data: [{% for data in data %} {{ data.fruits }}, {% endfor %}],
+                                backgroundColor: ['#16a085'],
+                                borderColor: ['#1abc9c'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+           
+            
+       </div>
+   </div>
+   <script src="{% static 'js/chart_graphs.js' %}" type="text/javascript"></script>
+</body>   

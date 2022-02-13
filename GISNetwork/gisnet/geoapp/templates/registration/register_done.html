@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %} Welcome {% endblock %}
+{% block content %}
+    <h1>Welcome  {{ new_user.first_name }} to Nakuru Avocado Net !</h1>
+    <p>Your acccount has been successfully created. You can now <a href="{% url 'login' %}">Sign in</a></p>
+{% endblock %}

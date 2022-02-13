@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %} 
+{% load crispy_forms_tags %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/homeindex.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'js/leaflet/leaflet.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'js/leafletplugins/leafletDraw/leaflet.draw.css' %}">
+    <link rel="stylesheet"  href="{% static 'js/leafletplugins/leaflet.groupedlayercontrol.css' %}"  type="text/css">
+    <link rel="stylesheet" href="{% static 'js/leafletplugins/leafletSearch/leaflet-search.css' %}">
+    <link rel="stylesheet" href="{% static 'js/leafletplugins/mousePosition/L.Control.MousePosition.css' %}">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/Control.Geocoder.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/L.Control.Locate.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/leaflet-measure.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'js/leafletplugins/leaflet-routing-machine.css' %}" type="text/css">
+    <title> Nakuru Avocado Network </title>
+</head>
+<body>
+   <div id="topbar">
+     <div class="logo"><h3 id="branding"> Nakuru Avocado Network </h3></div>
+     <div class="navigation">
+       <a href="{% url 'home' %}" class="one_line current">Home</a>
+       <a href="{% url 'reporting'%}" class="one_line">Report Incidence</a>
+       <span id="users">
+           {% if request.user.is_authenticated %}
+               Welcome  {{   request.user.first_name }}
+               <a href="{% url 'logout'  %}">Logout</a>
+           {% else %}
+               <a href="{% url 'login' %}">Login</a>
+           {% endif %} 
+       </span>       
+   </div>
+   </div>
+
+   <div id="bodycontainer">
+        <!--- SIDE BAR NAVIGATOR FOR PANELS-->
+        <div class="sidenavigator">
+            <ul>
+                <li class="tablinks" onclick="openContent(event,'Home')">
+                    <img src="{% static 'images/themaps.png' %}" alt="home" id="nav_image"></li>
+                <li class="tablinks" onclick="openContent(event,'Harvests')">
+                    <a href="{% url 'harvest_details' %}"><img src="{% static 'images/financialanalytics.png' %}" id="nav_image" alt="harvest details" style="width: 25px; height: 25px; padding-right:0.5em ; "></a>
+                    </li>
+                <li class="tablinks" onclick="openContent(event,'Schedules')">
+                    <img src="{% static 'images/icons_schedule_1.png' %}" alt="pickup schedules" id="nav_image"></li>
+            </ul>
+        </div>
+        <!--------- MAIN CONTENTS AREA--------->
+        <div class="maincontents">
+            <div id="Home" class="tabcontent">
+                <div id="maparea">
+                    <!--THE MAP RESIDES HERE, ANY MORE ANALYSIS AND MAPS ARE ALL IN HERE-->
+                </div>
+            </div>
+            <div id="Harvests" class="tabcontent">
+                <!--This section contains the form for harvest details being input and saved-->
+            </div>
+            <div id="Schedules" class="tabcontent">
+                <h4> All pick up schedules are displayed here </h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                    Alias nemo deleniti officia eveniet commodi voluptas magni 
+                    cupiditate dolores nobis! Dolores modi possimus laboriosam dolor 
+                    qui itaque 
+                    deleniti adipisci dolorum eius?</p>
+   
+            </div>
+        </div>
+   </div>
+
+  <div id="bottompage">
+  </div>
+  <script src="{% static 'js/leaflet/leaflet.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/L.Control.Locate.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leaflet-measure.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/Control.Geocoder.js'  %}" type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/easy-button.js'  %}" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+  <script src= "{% static 'js/leafletplugins/leafletDraw/Leaflet.draw.js' %}"  type="text/javascript"></script>
+  <script src= "{% static 'js/leafletplugins/leafletDraw/Leaflet.Draw.Event.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Control.Draw.js' %}"   type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Toolbar.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Tooltip.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/TouchEvents.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/GeometryUtil.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/LatLngUtil.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/LineUtil.Intersect.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Polygon.Intersect.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Polyline.Intersect.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/DrawToolbar.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.Feature.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.SimpleShape.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.Polyline.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.Marker.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.Circle.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.CircleMarker.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.Polygon.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Draw.Rectangle.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/EditToolbar.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/EditToolbar.Edit.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/EditToolbar.Delete.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Edit.Poly.js' %}"   type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Edit.SimpleShape.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Edit.Rectangle.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Edit.Marker.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Edit.Circle.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletDraw/Edit.CircleMarker.js' %}"  type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leaflet.ajax.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leaflet.groupedlayercontrol.js'%}" type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/leafletSearch/leaflet-search.js'%}" type="text/javascript"></script>
+  <script src="{% static 'js/leafletplugins/mousePosition/L.Control.MousePosition.js'%}" type="text/javascript"></script>
+  <script src="{% static 'js/jquery/jquery.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/mainjscript.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/mapscript.js' %}" type="text/javascript"></script>
+  
+  
+</body>
+</html>

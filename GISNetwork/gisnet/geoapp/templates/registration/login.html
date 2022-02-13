@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Nakuru Avocado Net Login {% endblock %}
+{% block content %}
+    <h1>Login</h1>
+    {% if login_form.errors %}
+            <p class="errors"> Your username or password didn't match. Please try again </p>
+    {%  else %}
+        <p>Use the form below to login. </p>
+    {% endif %}
+    <p><strong> Don't have an account ? <a href="{% url 'register' %}">Register here</a></strong></p>
+    <div id="login_form">
+        <form action="{% url 'login' %}" method="POST">
+            {{ login_form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <p><input type="submit" value="Log-in"></p>
+        </form>  
+    </div>
+    <div id="reg_link">
+        <p>Forgot your password ? Follow this link to  <strong> <a href="{% url 'password_reset' %}"> reset </a></strong></p>
+    </div> 
+{% endblock %}

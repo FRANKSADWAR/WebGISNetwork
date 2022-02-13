@@ -1,0 +1,195 @@
+/*
+THIS IS ORIGINAL DESIGN!!
+*/
+
+@font-face{
+    src: url('../fonts/OpenSans-Regular.ttf');
+    font-family: 'OpenSans';
+    font-weight: normal;
+}
+@font-face{
+    src: url('../fonts/Roboto-Regular.ttf');
+    font-family: 'Roboto';
+    font-weight: normal;
+}
+
+/*....GLOBAL STYLING....*/
+*,html,body {
+  padding: 0;
+  margin:0;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+/*.....BODY STYLING ....*/
+body{
+  font-family: 'Roboto';
+  font-size: 0.8em;
+  font-weight: normal;
+}
+ul li{
+  list-style-type: none;
+}
+
+/*............TOP BAR.......*/
+#topbar {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  padding-top: 0.2em;
+  height: 2.4em;
+  background-color: #088435;
+  color: #ffffff;
+}
+
+#users {
+  float: right;
+  padding-right:1em;
+}
+#users a{
+  text-decoration: none;
+  color: #05c46b;
+}
+#topbar .logo, .navigation{
+  padding-top: 0.6em;
+}
+#topbar .logo #branding{
+  margin-left: 1.2em;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+#branding .uniques{
+  color: #273c75;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-transform:uppercase;
+
+}
+#topbar .navigation > a{
+  cursor: pointer;
+  text-decoration: none;
+  color: #ffffff;
+}
+#topbar .navigation > a:hover{
+  cursor: pointer;
+  color: #05c46b;
+  padding-right: 0.5em;
+  transition: 0.2s ease-in;
+}
+#topbar .navigation > .current{
+  color: #f1c40f;
+  padding-right: 0.5em
+}
+#topbar .navigation .one_line{
+  padding-left: 2.5em;
+  display: inline-grid;
+}
+
+/*............THE BODY CONTENT STYLING..........*/
+#bodycontainer {
+  display: grid;
+  grid-template-columns: 0.4fr 9.6fr ;
+  height: 100vh;
+}
+
+/*---------------SIDE NAVIGATOR STYLING---------------*/
+#bodycontainer .sidenavigator {
+  background-color: #27ae60;
+  color: #000000;
+  height: 100%;
+}
+
+#bodycontainer .sidenavigator li{
+  padding-bottom: 0.8em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  padding-top:0.5em;
+  cursor: pointer;
+}
+#bodycontainer .sidenavigator li:hover{
+  background-color: #dbdbdb;
+  transition: 0.5s ease-in;
+}
+
+#bodycontainer .sidenavigator li > img{
+  width: 25px;
+  height: 25px;
+  padding-right: 0.5em;
+}
+
+
+#bodycontainer .sidenavigator li > span{
+  position: relative;
+  top: -0.2em;
+}
+#bodycontainer .sidenavigator li.active{
+  background-color: #16a085;
+}
+
+
+
+
+/*.....---------------------CONTENTS STYLING--------------.....*/
+.maincontents {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+
+/*---------STYLING FOR THE MAIN CONTENTS-----*/
+#Home{
+  width: 100%;
+  height: 100%;
+}
+#maparea {
+  width: 100%;
+  height: 100%;
+}
+
+#Harvests,#Schedules{
+  display: none;
+}
+
+
+
+/*-----------------RESPONSIVE DESIGN MODE-----------------------*/
+
+@media (max-width:480px) {
+  #bodycontainer .sidenavigator li{
+    padding-bottom: 0.4em;
+    padding-top:0.8em;
+  }
+  #bodycontainer .sidenavigator li > span{
+    display: none;
+  }
+}
+@media (max-width:768px){
+  #bodycontainer .sidenavigator li{
+    padding-bottom: 0.em;
+    padding-top:0.6em;
+  }
+  #bodycontainer .sidenavigator li > span{
+    font-size: 0.6em;
+    position: relative;
+    top: 0.6em;
+    right: 0.1em;
+  }
+  #bodycontainer .sidenavigator li > img{
+    position: relative;
+    left: 2em;
+    height: 20px;
+    width: 20px;
+  }
+  #bodycontainer .sidenavigator li > .except{
+      position: relative;
+      top: 1.0em;
+      right: 2em;
+  }
+}

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta  name="author" content="IldingoLeads">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <title>{% block title %} Nakuru Avocado Network {% endblock %}</title>
+</head>
+<body>
+    <div id="topbar">
+        <div class="logo"><h3 id="branding"> Nakuru Avocado <span class="uniques">Network</span></h3></div>
+        <div class="navigation"></div>
+    </div>
+    {% if messages %}
+        <ul class="messages" >
+            {% for message in messages %}
+                 <li class="{{ message.tags }}" >
+                     {{ message|safe }}
+                     <a href="#" class="close"> X </a>
+                 </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div id="bodycontainer">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="{% static 'js/base.js' %}" type="text/javascript"></script>
+</body>
+</html>
